@@ -8,13 +8,13 @@ import {
   Password,
   userInformation,
 } from "../../types/InterfaceOfStates";
-import axios from "axios";
 import { InputValidation } from "../Utilities/inputValidation";
 import { StepByStep } from "../Utilities/stepByStep";
 import { InputWithoutValidation } from "../Utilities/inputWithoutValidation";
 import { UseContextLoginProvider } from "../../context/contextLogin";
 import { useDispatch } from "react-redux/es/exports";
 import { ChangeCorrect } from "../../reducers/Reducer.sessions";
+import { connect } from "../../util/conectionApi";
 interface PropsCreateUser {
   email: Email;
   setEmail: Dispatch<SetStateAction<Email>>;
@@ -51,20 +51,17 @@ export const CreateUser = () => {
         valid={dataAreValids}
         actionLastStep={async () => {
           try {
-            const data = await axios.post(
-              "http://127.0.0.1:9000/user/newUser",
-              {
-                userAddres: addres,
-                user: { email: email.email, password: password.password },
-                information: {
-                  ...userInformation,
-                  dateOfBirth:
-                    userInformation.dateOfBirth === ""
-                      ? null
-                      : new Date(userInformation.dateOfBirth),
-                },
-              }
-            );
+            const data = await connect.post("/user/newUser", {
+              userAddres: addres,
+              user: { email: email.email, password: password.password },
+              information: {
+                ...userInformation,
+                dateOfBirth:
+                  userInformation.dateOfBirth === ""
+                    ? null
+                    : new Date(userInformation.dateOfBirth),
+              },
+            });
             dispatch(
               ChangeCorrect({
                 isCorrect: true,
@@ -76,7 +73,6 @@ export const CreateUser = () => {
               ChangeCorrect({
                 isCorrect: false,
                 message: error.response.data.error,
-                show: true,
               })
             );
           }
