@@ -35,8 +35,12 @@ export const reducerSession = createSlice({
     },
     ChangeCorrect: (state, { payload }: { payload: Correct }) => {
       state.correct = payload;
+      state.correct.show = true;
+    },
+    ChangeCorrectShow: (state) => {
+      state.correct.show = false;
     },
   },
 });
-export const { ChangeLoading, ChangeUser, ChangeCorrect } =
+export const { ChangeLoading, ChangeUser, ChangeCorrect, ChangeCorrectShow } =
   reducerSession.actions;
