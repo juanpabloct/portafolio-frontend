@@ -6,6 +6,10 @@ import { Tabs } from "./components/Utilities/tabs";
 import { CreateUser } from "./components/forms/createUser";
 import { useSession } from "./customHooks/customHookSession";
 import { Notification } from "./components/Utilities/notification";
+import { AccesUser } from "./pages/accesUser";
+import { BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router";
+import { Home } from "./pages/home";
 
 function App() {
   const { show } = useSession().correct;
@@ -16,26 +20,13 @@ function App() {
       <Header />
       <main className="h-full w-full flex flex-col relative">
         <Notification />
-        <Tabs
-          tabs={[
-            {
-              element: (
-                <section className="App justify-center  flex  w-1/2  max-w-[624px]  h-[20rem] shadow-md shadow-zinc-500 border border-zinc-300 rounded-md items-center bg-white">
-                  <Login />
-                </section>
-              ),
-              name: "Login",
-            },
-            {
-              element: (
-                <section className="App justify-center   flex  w-1/2  max-w-[624px]  h-[20rem] shadow-md shadow-zinc-500 border border-zinc-300 rounded-md items-center bg-white">
-                  <CreateUser />
-                </section>
-              ),
-              name: "Crear Usuario",
-            },
-          ]}
-        />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<AccesUser />} />
+            <Route path="*" element={<p>Pagina No encontrada</p>} />
+          </Routes>
+        </BrowserRouter>
       </main>
     </div>
   );
