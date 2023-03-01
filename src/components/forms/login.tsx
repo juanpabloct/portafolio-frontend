@@ -1,20 +1,19 @@
 import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  ContextLoginProvider,
-  UseContextLoginProvider,
-} from "../../context/contextLogin";
+import { useNavigate } from "react-router-dom";
+import { UseContextLoginProvider } from "../../context/contextLogin";
 import { UseValidEmail } from "../../customHooks/validEmail";
 import { UseValidPassword } from "../../customHooks/validPassword";
 import { ChangeCorrect, ChangeUser } from "../../reducers/Reducer.sessions";
-import { Email, Password } from "../../types/InterfaceOfStates";
+import { connect } from "../../util/conectionApi";
 import { Button } from "../button";
 import { InputValidation } from "../Utilities/inputValidation";
 
 export const Login = () => {
   const dispatch = useDispatch();
   const { email, password, setEmail, setPassword } = UseContextLoginProvider();
+  const navigate = useNavigate();
   const validPasswordAndEmail = !(
     Boolean(email.valid) && Boolean(password.valid)
   );
@@ -45,24 +44,33 @@ export const Login = () => {
       <Button
         action={async () => {
           try {
-            const { data } = await axios.post(
-              "http://127.0.0.1:9000/user/login",
-              {
-                params: {
-                  email: email.email,
-                  password: password.password,
-                },
-              }
-            );
+            const { data } = await connect.post("/user/login", {
+              params: {
+                email: email.email,
+                password: password.password,
+              },
+            });
             dispatch(
               ChangeUser({
                 user: { ...data, haveUser: true },
                 correct: { isCorrect: true, message: data.message },
               })
             );
+            navigate("/");
           } catch (error: any) {
-            const { message } = error.response.data;
-            dispatch(ChangeCorrect({ isCorrect: false, message, show: true }));
+            if (error?.response) {
+              const { message } = error.response.data;
+              dispatch(
+                ChangeCorrect({ isCorrect: false, message, show: true })
+              );
+            } else {
+              dispatch(
+                ChangeCorrect({
+                  isCorrect: false,
+                  message: "No se puede Conectar al Servidor",
+                })
+              );
+            }
           }
         }}
         text={"Ingresar"}
