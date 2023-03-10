@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UseContextLoginProvider } from "../../context/contextLogin";
 import { UseValidEmail } from "../../customHooks/validEmail";
 import { UseValidPassword } from "../../customHooks/validPassword";
@@ -24,6 +24,11 @@ export const Login = () => {
       className="flex-col flex w-1/2 gap-10 items-center"
       onSubmit={(e) => e.preventDefault()}
     >
+      <div>
+        <h3 className="font-bold text-lg">Login</h3>
+        <hr className="w-full bg-red-600 h-1" />
+      </div>
+
       <InputValidation
         action={(e) => {
           UseValidEmail(e, setEmail);
@@ -76,6 +81,9 @@ export const Login = () => {
         text={"Ingresar"}
         validate={validPasswordAndEmail}
       />
+      <Link to={"/"} className={"text-blue-400"}>
+        Redirigir a vista Principal
+      </Link>
     </form>
   );
 };
