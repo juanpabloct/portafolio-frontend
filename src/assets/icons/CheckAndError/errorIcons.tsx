@@ -1,4 +1,4 @@
-import { IconsProps } from "../../../../types/iconsTypes";
+import { IconsProps } from "../../../types/iconsTypes";
 
 export const ErrorIcons = ({ fill = "red", size = "18" }: IconsProps) => {
   return (

@@ -1,4 +1,4 @@
-import { IconsProps } from "../../../../types/iconsTypes";
+import { IconsProps } from "../../../types/iconsTypes";
 
 export const Check = ({ size = "18", fill = "green" }: IconsProps) => {
   return (
