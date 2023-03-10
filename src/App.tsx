@@ -16,9 +16,9 @@ function App() {
   console.log(show);
 
   return (
-    <div className="w-full h-full flex flex-col bg-gradient-to-t  to-white via-white from-[#d4ddf8]">
+    <div className="w-full h-full  flex flex-col">
       <Header />
-      <main className="h-full w-full flex flex-col relative">
+      <main className="h-[90%] w-full flex flex-col relative ">
         <Notification />
         <BrowserRouter>
           <Routes>
