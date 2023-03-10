@@ -6,8 +6,8 @@ export interface ResponseCreateUser {
 }
 
 export interface User {
-  information: null;
-  users_address: null;
+  information: Information | null;
+  users_address: UsersAddress | null;
   email: string;
 }
 
