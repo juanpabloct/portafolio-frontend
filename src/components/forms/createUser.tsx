@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { UseValidEmail } from "../../customHooks/validEmail";
 import { UseValidPassword } from "../../customHooks/validPassword";
 import {
@@ -40,11 +40,12 @@ export const CreateUser = () => {
   const dispatch = useDispatch();
   const allData = UseContextLoginProvider();
   const dataAreValids = !!email.valid && !!password.valid;
+  const [file, setFile] = useState<FileList>();
 
   return (
     <form
       action=""
-      className="flex-col flex  gap-10 items-center h-full w-full"
+      className="flex-col flex  gap-5 items-center h-full w-full"
       onSubmit={(e) => e.preventDefault()}
     >
       <StepByStep
@@ -80,49 +81,52 @@ export const CreateUser = () => {
         element={[
           {
             elements: (
-              <>
-                <InputValidation
-                  required={true}
-                  action={(e) => {
-                    UseValidEmail(e, setEmail);
-                  }}
-                  placeholder="Email"
-                  value={email}
-                  valueNow={email.email}
-                />
-                <InputValidation
-                  required={true}
-                  action={(e) => UseValidPassword(e, setPassword)}
-                  placeholder="Password"
-                  type={"password"}
-                  value={password}
-                  valueNow={password.password}
-                />
-              </>
+              <div className="h-full flex flex-col w-full">
+                <div className={`${file && "h-full"} flex flex-col`}>
+                  {file && (
+                    <img
+                      className="h-full"
+                      src={URL.createObjectURL(file[0])}
+                      alt=""
+                    />
+                  )}
+                  <input
+                    type="file"
+                    onChange={({ target }) => {
+                      const { files } = target;
+                      files && files.length > 0
+                        ? setFile(files)
+                        : setFile(undefined);
+
+                      const fileForm = new FormData();
+                      files && fileForm.append("file", files[0]);
+                      connect.post("/login/addPhoto", fileForm);
+                    }}
+                  />
+                </div>
+                <div className="">
+                  <InputValidation
+                    required={true}
+                    action={(e) => {
+                      debugger;
+                      UseValidEmail(e, setEmail);
+                    }}
+                    placeholder="Email"
+                    value={email}
+                    valueNow={email.email}
+                  />
+                  <InputValidation
+                    required={true}
+                    action={(e) => UseValidPassword(e, setPassword)}
+                    placeholder="Password"
+                    type={"password"}
+                    value={password}
+                    valueNow={password.password}
+                  />
+                </div>
+              </div>
             ),
             title: "Usuario",
-          },
-          {
-            elements: (
-              <>
-                {Object.keys(addres).map((infoAddres, i) => {
-                  return (
-                    <InputWithoutValidation
-                      key={i}
-                      action={(e) => {
-                        setAddres((current) => {
-                          return { ...current, [infoAddres]: e };
-                        });
-                      }}
-                      placeholder={infoAddres}
-                      type={"text"}
-                      value={addres[infoAddres]}
-                    />
-                  );
-                })}
-              </>
-            ),
-            title: "Dirreccion",
           },
           {
             elements: (
@@ -145,6 +149,28 @@ export const CreateUser = () => {
               </>
             ),
             title: "Informacion Del Usuario",
+          },
+          {
+            elements: (
+              <>
+                {Object.keys(addres).map((infoAddres, i) => {
+                  return (
+                    <InputWithoutValidation
+                      key={i}
+                      action={(e) => {
+                        setAddres((current) => {
+                          return { ...current, [infoAddres]: e };
+                        });
+                      }}
+                      placeholder={infoAddres}
+                      type={"text"}
+                      value={addres[infoAddres]}
+                    />
+                  );
+                })}
+              </>
+            ),
+            title: "Dirreccion",
           },
         ]}
         textLastStep={"Crear Usuario"}
