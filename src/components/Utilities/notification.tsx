@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
-import { Check } from "../../assets/icons/inputPassword/CheckAndError/check";
+import { Check } from "../../assets/icons/CheckAndError/check";
 import { useSession } from "../../customHooks/customHookSession";
 import { useEffect } from "react";
 import { ChangeCorrectShow } from "../../reducers/Reducer.sessions";
-import { ErrorIcons } from "../../assets/icons/inputPassword/CheckAndError/errorIcons";
+import { ErrorIcons } from "../../assets/icons/CheckAndError/errorIcons";
 export const Notification = () => {
   const { correct } = useSession();
   const { isCorrect, message, show } = correct;
