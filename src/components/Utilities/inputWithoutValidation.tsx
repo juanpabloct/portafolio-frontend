@@ -17,6 +17,9 @@ export const InputWithoutValidation = ({
     <div className="w-full">
       {
         <>
+          <label htmlFor="" className="text-[0.78rem] font-bold">
+            {placeholder.replace(placeholder[0], placeholder[0].toUpperCase())}
+          </label>
           {required && (
             <span className="text-red-600 text-[0.5rem]">*Required</span>
           )}
