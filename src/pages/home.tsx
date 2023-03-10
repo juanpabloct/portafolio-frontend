@@ -3,6 +3,7 @@ import { Collapse } from "../components/Utilities/collapse";
 import { justificar, Tabs, types } from "../components/Utilities/tabs";
 import { User } from "../types/responseLoginUser";
 import { connect } from "../util/conectionApi";
+import profile from "../assets/icons/profile/profile.svg";
 
 export const Home = () => {
   const [information, setInformation] = useState<User[]>([]);
@@ -13,19 +14,51 @@ export const Home = () => {
     };
     getData();
   }, []);
+  console.log(information);
+
   return (
-    <section>
+    <section className="h-full">
       <Tabs
         width={"50%"}
         type={types.line}
-        justify={justificar.justifyEvenly}
+        justify={justificar.start}
         tabs={[
           {
             name: "Usuarios",
             element: (
-              <Collapse title="SDFSDF">
-                <div>Holaaa</div>
-              </Collapse>
+              <div className="w-1/2 flex flex-col justify-between h-full ">
+                {information.map((user, i) => {
+                  const { email, information, users_address } = user;
+
+                  return (
+                    <div
+                      key={i}
+                      className="flex border border-black w-full py-2 px-1 rounded-md gap-4 bg-white shadow-sm shadow-neutral-800"
+                    >
+                      <div>
+                        <img
+                          src={profile}
+                          alt=""
+                          className="rounded-full h-10 border border-black"
+                        />
+                      </div>
+                      {information && users_address ? (
+                        <div>
+                          <p>
+                            {information.name} {information.lastName}
+                          </p>
+                          <p>
+                            {users_address.city} {users_address.directions}{" "}
+                            {users_address.department} {users_address.country}
+                          </p>
+                        </div>
+                      ) : (
+                        <div>No hay informacion</div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             ),
           },
           { name: "Projectos", element: <div>Projectos</div> },
