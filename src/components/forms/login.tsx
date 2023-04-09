@@ -1,5 +1,3 @@
-import axios from "axios";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { UseContextLoginProvider } from "../../context/contextLogin";
@@ -39,7 +37,9 @@ export const Login = () => {
         required={email.required}
       />
       <InputValidation
-        action={(e) => UseValidPassword(e, setPassword)}
+        action={(e) => {
+          UseValidPassword(e, setPassword);
+        }}
         required={password.required}
         placeholder="Password"
         type={"password"}
@@ -49,7 +49,7 @@ export const Login = () => {
       <Button
         action={async () => {
           try {
-            const { data } = await connect.post("/user/login", {
+            const data = await connect.post("/user/login", {
               params: {
                 email: email.email,
                 password: password.password,
@@ -58,7 +58,7 @@ export const Login = () => {
             dispatch(
               ChangeUser({
                 user: { ...data, haveUser: true },
-                correct: { isCorrect: true, message: data.message },
+                correct: { isCorrect: true, message: data.data.message },
               })
             );
             navigate("/");
@@ -81,7 +81,11 @@ export const Login = () => {
         text={"Ingresar"}
         validate={validPasswordAndEmail}
       />
-      <Link to={"/"} className={"text-blue-400"}>
+      <Link
+        to={"/"}
+        className={"text-blue-400 text-sm"}
+        title="Redirigir a la vista principar sin ingresar el usuario"
+      >
         Redirigir a vista Principal
       </Link>
     </form>
