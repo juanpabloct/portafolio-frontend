@@ -1,34 +1,31 @@
 import "./App.css";
 import { Header } from "./components/header/header";
 
-import { Login } from "./components/forms/login";
-import { Tabs } from "./components/Utilities/tabs";
-import { CreateUser } from "./components/forms/createUser";
-import { useSession } from "./customHooks/customHookSession";
 import { Notification } from "./components/Utilities/notification";
 import { AccesUser } from "./pages/accesUser";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router";
 import { Home } from "./pages/home";
+import { FlexCol } from "./components/styles/flexCol";
+import { Footer } from "./components/footer";
 
 function App() {
-  const { show } = useSession().correct;
-  console.log(show);
-
   return (
-    <div className="w-full h-full  flex flex-col">
-      <Header />
-      <main className="h-[90%] w-full flex flex-col relative ">
-        <Notification />
-        <BrowserRouter>
+    <BrowserRouter>
+      <FlexCol className="h-full  justify-between min-h-screen">
+        <Header />
+
+        <main className="h-[90%] w-full flex flex-col relative bg-[#f3f3f3] flex-1 pt-3">
+          <Notification />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<AccesUser />} />
             <Route path="*" element={<p>Pagina No encontrada</p>} />
           </Routes>
-        </BrowserRouter>
-      </main>
-    </div>
+        </main>
+        <Footer />
+      </FlexCol>
+    </BrowserRouter>
   );
 }
 
