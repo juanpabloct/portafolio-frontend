@@ -1,4 +1,6 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
+import { FlexCol } from "../styles/flexCol";
+import { FlexRow } from "../styles/flexRow";
 interface TabsProps {
   element: ReactNode;
   name: string;
@@ -31,9 +33,9 @@ export const Tabs = ({
     setChangeTab(false);
   }, [showTab]);
   return (
-    <div className="w-full h-full flex flex-col justify-start items-center  gap-10 ">
-      <div
-        className={`flex relative  ${justify}  pb-1 border-2 rounded-xl  items-end  gap-4 h-12`}
+    <FlexCol className=" h-full  justify-center items-center  gap-10 ">
+      <FlexRow
+        className={`flex relative  ${justify}  pb-1  rounded-md  items-end  gap-4 h-12 bg-white shadow-md shadow-black`}
         style={{ width: width }}
       >
         {tabs.map((tab, i) => {
@@ -71,14 +73,14 @@ export const Tabs = ({
             </section>
           );
         })}
-      </div>
-      <div
-        className={` w-full duration-1000 transition-all flex justify-center items-start h-4/5 ${
+      </FlexRow>
+      <FlexRow
+        className={`duration-1000 transition-all  justify-center items-start h-4/5 ${
           !changeTab && "animate-changeTab"
         } `}
       >
         {tabs[showTab].element}
-      </div>
-    </div>
+      </FlexRow>
+    </FlexCol>
   );
 };
