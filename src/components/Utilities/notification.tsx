@@ -11,7 +11,7 @@ export const Notification = () => {
   useEffect(() => {
     const timeChangeShow = setTimeout(() => {
       dispatch(ChangeCorrectShow());
-    }, 4000);
+    }, 5000);
     return () => {
       clearTimeout(timeChangeShow);
     };
@@ -19,13 +19,20 @@ export const Notification = () => {
 
   return (
     <div
-      className={`absolute flex items-center gap-2 border right-0 p-3 shadow-md shadow-black ${
+      className={`absolute flex items-center gap-2 border right-0 p-3 shadow-md shadow-black mr-1 z-50 bg-white rounded-md ${
         isCorrect ? "border-slate-400" : "border-red-500 text-red-500"
       } ${
         show ? "visible opacity-100" : "invisible opacity-0"
       } transition-["visible"] duration-500  animate-notificationOpacity `}
     >
-      {isCorrect ? <Check size="24" /> : <ErrorIcons size="24" />}
+      <span
+        className="cursor-pointer"
+        onClick={() => {
+          dispatch(ChangeCorrectShow());
+        }}
+      >
+        {isCorrect ? <Check size="24" /> : <ErrorIcons size="24" />}
+      </span>
       <p className="text-lg">{message}</p>
     </div>
   );
