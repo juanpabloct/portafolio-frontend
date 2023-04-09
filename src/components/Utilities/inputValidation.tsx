@@ -63,8 +63,9 @@ export const InputValidation = ({
                   }`}
                   placeholder={placeholder}
                   onChange={({ target }) => {
-                    type !== "file";
-                    target.files ? action(target.value) : action(target.files);
+                    type !== "file"
+                      ? action(target.value)
+                      : action(target.files);
                   }}
                 />
               </>
