@@ -51,18 +51,28 @@ export const CreateUser = () => {
       <StepByStep
         valid={dataAreValids}
         actionLastStep={async () => {
+          const json = (object: {}) => JSON.stringify(object);
+          const params = new FormData();
+          file && params.set("image", file[0]);
+          params.append("userAddres", json({ ...addres }));
+          params.append(
+            "user",
+            json({ email: email.email, password: password.password })
+          );
+          params.append(
+            "information",
+            json({
+              ...userInformation,
+              dateOfBirth:
+                userInformation.dateOfBirth === ""
+                  ? null
+                  : new Date(userInformation.dateOfBirth),
+            })
+          );
+
           try {
-            const data = await connect.post("/user/newUser", {
-              userAddres: addres,
-              user: { email: email.email, password: password.password },
-              information: {
-                ...userInformation,
-                dateOfBirth:
-                  userInformation.dateOfBirth === ""
-                    ? null
-                    : new Date(userInformation.dateOfBirth),
-              },
-            });
+            const data = await connect.post("/user/newUser", params);
+
             dispatch(
               ChangeCorrect({
                 isCorrect: true,
@@ -85,22 +95,19 @@ export const CreateUser = () => {
                 <div className={`${file && "h-full"} flex flex-col`}>
                   {file && (
                     <img
-                      className="h-full"
+                      className="h-full max-h-[11rem]"
                       src={URL.createObjectURL(file[0])}
                       alt=""
                     />
                   )}
                   <input
+                    className="imagen"
                     type="file"
                     onChange={({ target }) => {
                       const { files } = target;
                       files && files.length > 0
                         ? setFile(files)
                         : setFile(undefined);
-
-                      const fileForm = new FormData();
-                      files && fileForm.append("file", files[0]);
-                      connect.post("/login/addPhoto", fileForm);
                     }}
                   />
                 </div>
@@ -108,7 +115,6 @@ export const CreateUser = () => {
                   <InputValidation
                     required={true}
                     action={(e) => {
-                      debugger;
                       UseValidEmail(e, setEmail);
                     }}
                     placeholder="Email"
