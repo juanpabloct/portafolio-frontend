@@ -1,7 +1,22 @@
+import { Link } from "react-router-dom";
+import { LinkStyle } from "../linkStyle";
+import { FlexCol } from "../styles/flexCol";
+import { FlexRow } from "../styles/flexRow";
+import { HeaderNav } from "../styles/headerNav";
+import { Notification } from "../Utilities/notification";
+
 export const Header = () => {
   return (
-    <header className="w-full bg-white border-b-2 border-[#5c6d93]  text-[#5c6d93] text-center text-2xl font-bold py-2 h-[10%] flex items-center justify-center">
-      <h1>My Portafolio</h1>
-    </header>
+    <HeaderNav className="">
+      <FlexRow className=" text-xl pl-4 w-full   justify-between bg-black py-2 items-center">
+        <nav className="h-full text-2xl pl-4 text-[#efdbdb]">
+          <h1>My Portafolio</h1>
+        </nav>
+        <FlexRow className="w-min text-lg pr-10 ">
+          <LinkStyle title="Login" to="/login" />
+          <LinkStyle title="Home" to="/" />
+        </FlexRow>
+      </FlexRow>
+    </HeaderNav>
   );
 };
