@@ -14,13 +14,12 @@ export const Home = () => {
     };
     getData();
   }, []);
-  console.log(information);
 
   return (
     <section className="h-full">
       <Tabs
         width={"50%"}
-        type={types.line}
+        type={types.without_borders}
         justify={justificar.start}
         tabs={[
           {
@@ -28,7 +27,7 @@ export const Home = () => {
             element: (
               <div className="w-1/2 flex flex-col justify-between h-full ">
                 {information.map((user, i) => {
-                  const { email, information, users_address } = user;
+                  const { email, information, users_address, Photo } = user;
 
                   return (
                     <div
@@ -37,7 +36,7 @@ export const Home = () => {
                     >
                       <div>
                         <img
-                          src={profile}
+                          src={user.Photo ? user.Photo.url : profile}
                           alt=""
                           className="rounded-full h-10 border border-black"
                         />
