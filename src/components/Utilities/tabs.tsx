@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { FlexCol } from "../styles/flexCol";
-import { FlexRow } from "../styles/flexRow";
-interface TabsProps {
+import { FlexCol, FlexRow } from "../styles";
+
+interface Tabs {
   element: ReactNode;
   name: string;
 }
@@ -10,22 +10,18 @@ export enum types {
   "line" = "line",
   "without_borders" = "without_borders",
 }
-export enum justificar {
-  "start" = "justify-start",
-  "center" = "justify-center",
-  "end" = "justify-end",
+export interface TabsProps {
+  tabs: Tabs[];
+  type?: "round" | "line" | "without_borders";
+  width?: string;
+  justify?: "justify-start" | "justify-center" | "justify-end";
 }
 export const Tabs = ({
   tabs,
-  type = types.round,
+  type = "without_borders",
   width = "40%",
-  justify = justificar.center,
-}: {
-  tabs: TabsProps[];
-  type?: types;
-  width?: string;
-  justify?: justificar;
-}) => {
+  justify = "justify-start",
+}: TabsProps) => {
   const [showTab, setShowTab] = useState(0);
   const { line, round, without_borders } = types;
   const [changeTab, setChangeTab] = useState(false);

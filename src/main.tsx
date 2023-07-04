@@ -8,7 +8,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import "./index.css";
 import { reducerSession } from "./reducers/Reducer.sessions";
 import { Provider } from "react-redux";
+
 const allReducers = combineReducers({ session: reducerSession.reducer });
+
 const storeReducers = configureStore({
   reducer: allReducers,
 });

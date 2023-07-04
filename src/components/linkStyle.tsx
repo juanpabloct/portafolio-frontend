@@ -2,8 +2,6 @@ import { Link, useParams, useLocation } from "react-router-dom";
 
 export const LinkStyle = ({ to, title }: { to: string; title: string }) => {
   const url = useLocation();
-  console.log(url);
-
   return (
     <Link
       className={`${

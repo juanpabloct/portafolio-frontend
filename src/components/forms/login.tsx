@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { UseContextLoginProvider } from "../../context/contextLogin";
 import { UseValidEmail } from "../../customHooks/validEmail";
 import { UseValidPassword } from "../../customHooks/validPassword";
-import { ChangeCorrect, ChangeUser } from "../../reducers/Reducer.sessions";
+import { InputValidation } from "../Utilities";
 import { connect } from "../../util/conectionApi";
+import { ChangeCorrect, ChangeUser } from "../../reducers/Reducer.sessions";
 import { Button } from "../button";
-import { InputValidation } from "../Utilities/inputValidation";
 
 export const Login = () => {
   const dispatch = useDispatch();

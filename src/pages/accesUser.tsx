@@ -1,13 +1,12 @@
-import { CreateUser } from "../components/forms/createUser";
-import { Login } from "../components/forms/login";
-import { justificar, Tabs, types } from "../components/Utilities/tabs";
-export const daata = "";
+import { CreateUser, Login, Tabs } from "../components";
+
+export const data = "";
 export const AccesUser = () => {
   return (
     <Tabs
       width={"50%"}
-      type={types.without_borders}
-      justify={justificar.center}
+      type={"without_borders"}
+      justify={"justify-start"}
       tabs={[
         {
           element: (

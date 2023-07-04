@@ -1,13 +1,9 @@
 import "./App.css";
-import { Header } from "./components/header/header";
 
-import { Notification } from "./components/Utilities/notification";
-import { AccesUser } from "./pages/accesUser";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router";
-import { Home } from "./pages/home";
-import { FlexCol } from "./components/styles/flexCol";
-import { Footer } from "./components/footer";
+import { FlexCol, Footer, Header, Notification } from "./components";
+import { AccesUser, Home } from "./pages/";
 
 function App() {
   return (

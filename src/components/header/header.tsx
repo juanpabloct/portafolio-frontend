@@ -1,9 +1,5 @@
-import { Link } from "react-router-dom";
 import { LinkStyle } from "../linkStyle";
-import { FlexCol } from "../styles/flexCol";
-import { FlexRow } from "../styles/flexRow";
-import { HeaderNav } from "../styles/headerNav";
-import { Notification } from "../Utilities/notification";
+import { FlexRow, HeaderNav } from "../styles";
 
 export const Header = () => {
   return (
